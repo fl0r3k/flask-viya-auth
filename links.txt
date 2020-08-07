@@ -1,0 +1,9 @@
+https://www.sas.com/content/dam/SAS/support/en/sas-global-forum-proceedings/2018/1737-2018.pdf
+
+https://communities.sas.com/t5/Developers/Reuse-SASLogon-user-pass-authentication-to-get-an-oauth-token/td-p/552622
+
+https://docs.authlib.org/en/latest/client/flask.html
+
+https://blogs.sas.com/content/sgf/2019/01/25/authentication-to-sas-viya/
+
+http://www.nupeak.in/oauth-configuration-in-sas-viya/

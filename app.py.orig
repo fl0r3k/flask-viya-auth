@@ -1,0 +1,49 @@
+from flask import Flask, url_for, redirect, request, session
+from authlib.integrations.flask_client import OAuth
+
+import os
+os.environ["CURL_CA_BUNDLE"] = ""
+
+app = Flask(__name__)
+oauth = OAuth(app)
+app.secret_key = 'GranaT01'
+
+#oauth config
+oauth.register(
+    name='sas',
+    client_id='sas.MyAppAuthTest',
+    client_secret='GranaT01',
+    access_token_url='https://viya.transity.pl/SASLogon/oauth/token',
+    # access_token_params={'grant_type':'authorization_code'},
+    access_token_params=None,
+    authorize_url='https://viya.transity.pl/SASLogon/oauth/authorize',
+    # authorize_params={'grant_type':'authorization_code'},
+    authorize_params=None,
+    api_base_url='https://viya.transity.pl/',
+    client_kwargs={}
+)
+
+@app.route('/')
+def hello_world():
+    return 'Hello World!'
+
+@app.route('/login')
+def login():
+    sas = oauth.create_client('sas')
+    redirect_uri = url_for('authorize', _external=True)
+    return sas.authorize_redirect(redirect_uri)
+
+@app.route('/authorize')
+def authorize():
+    sas = oauth.create_client('sas')
+    token = sas.authorize_access_token()
+    resp = sas.get('identities/users/@currentUser')
+    info = resp.json()
+    print(info)
+    resp = sas.get('identities/users/@currentUser')
+    info = resp.json()
+    print(info)
+    return redirect('/')
+
+if __name__ == "__main__":
+    app.run()
