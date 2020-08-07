@@ -24,10 +24,21 @@ from user import User
 # Flask app setup
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY") or os.urandom(24)
+app.config.from_object('config')
 
 token = None
 oauth = OAuth(app)
-
+oauth.register(
+    name='sas',
+    client_id='sas.MyAppAuthTest',
+    client_secret='GranaT01',
+    access_token_url='https://viya.transity.pl/SASLogon/oauth/token',
+    access_token_params=None,
+    authorize_url='https://viya.transity.pl/SASLogon/oauth/authorize',
+    authorize_params=None,
+    api_base_url='https://viya.transity.pl/',
+    client_kwargs={}
+)
 
 # User session management setup
 # https://flask-login.readthedocs.io/en/latest
@@ -41,18 +52,7 @@ except sqlite3.OperationalError:
     # Assume it's already been created
     pass
 
-# OAuth 2 client register
-oauth.register(
-    name='sas',
-    client_id='sas.MyAppAuthTest',
-    client_secret='GranaT01',
-    access_token_url='https://viya.transity.pl/SASLogon/oauth/token',
-    access_token_params=None,
-    authorize_url='https://viya.transity.pl/SASLogon/oauth/authorize',
-    authorize_params=None,
-    api_base_url='https://viya.transity.pl/',
-    client_kwargs={}
-)
+
 
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
@@ -79,7 +79,7 @@ def login():
     redirect_uri = url_for('authorize', _external=True)
     return sas.authorize_redirect(redirect_uri)
 
-    
+
 @app.route("/authorize")
 def authorize():
     global token
