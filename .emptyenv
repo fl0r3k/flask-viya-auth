@@ -1,0 +1,10 @@
+SECRET_KEY=such-secure+much-secret
+
+SAS_CLIENT_ID=
+SAS_CLIENT_SECRET=
+SAS_ACCESS_TOKEN_URL=https://localhost/SASLogon/oauth/token
+SAS_ACCESS_TOKEN_PARAMS=
+SAS_AUTHORIZE_URL=https://localhost/SASLogon/oauth/authorize
+SAS_AUTHORIZE_PARAMS=
+SAS_API_BASE_URL=https://localhost
+SAS_CLIENT_KWARGS=
