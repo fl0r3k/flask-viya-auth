@@ -56,10 +56,11 @@ except sqlite3.OperationalError:
 
 # Flask-Login helper to retrieve a user from our db
 @login_manager.user_loader
-def load_user(user_id):
+def user_loader(user_id):
     return getUserInfo()
 
 @app.route("/")
+@login_required
 def index():
     if current_user.is_authenticated:
         return (
@@ -92,6 +93,7 @@ def authorize():
 @login_required
 def logout():
     logout_user()
+    #TODO: revoke token
     return redirect(url_for("index"))
 
 def getUserInfo():
