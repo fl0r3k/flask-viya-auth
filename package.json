@@ -1,0 +1,33 @@
+{
+  "name": "flask-viya-auth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fl0r3k/flask-viya-auth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fl0r3k/flask-viya-auth/issues"
+  },
+  "homepage": "https://github.com/fl0r3k/flask-viya-auth#readme",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "babelify": "^10.0.0",
+    "bower": "^1.8.8",
+    "browserify": "^16.5.2",
+    "gulp": "^4.0.2",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

@@ -1,0 +1,10 @@
+__pycache__
+node_modules
+bower_components
+package-lock.json
+
+.env
+
+sqlite_db
+
+app/static/cas/scripts/js

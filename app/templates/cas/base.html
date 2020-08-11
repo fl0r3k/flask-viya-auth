@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head lang="en">
+    <meta charset="UTF-8">
+    <title>Flask React</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Flask React</h1>
+      <br>
+      <div id="main"></div>
+    </div>
+    <!-- scripts -->
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="{{ url_for('static', filename='bower_components/react/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='bower_components/react-dom/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='cas/scripts/js/bundle.js') }}"></script>
+  </body>
+</html>

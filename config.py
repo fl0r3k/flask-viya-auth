@@ -7,7 +7,11 @@ load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
 
-    SECRET_KEY = os.environ.get('SECRET_KEY')
+    SECRET_KEY              = os.environ.get('SECRET_KEY')
+
+    SESSION_TYPE            = os.environ.get('SESSION_TYPE')
+
+    CURL_CA_BUNDLE          = os.environ.get('CURL_CA_BUNDLE')
 
     SAS_CLIENT_ID           = os.environ.get('SAS_CLIENT_ID')
     SAS_CLIENT_SECRET       = os.environ.get('SAS_CLIENT_SECRET')
@@ -17,4 +21,3 @@ class Config(object):
     SAS_AUTHORIZE_PARAMS    = os.environ.get('SAS_AUTHORIZE_PARAMS')
     SAS_API_BASE_URL        = os.environ.get('SAS_API_BASE_URL')
     SAS_CLIENT_KWARGS       = os.environ.get('SAS_CLIENT_KWARGS')
-    
