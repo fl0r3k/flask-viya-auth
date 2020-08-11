@@ -10,6 +10,7 @@ var paths = [ '.' ];
 gulp.task('js', function() {
   //Browserify bundles the JS.
   return browserify( 'main.jsx', { basedir: basedir, paths: paths} )
+  // return browserify( 'main.jsx', { basedir: basedir } )
     .transform( babelify ) //———–> transpiles es6 to es5
     .bundle()
     .on('error', (err) => {

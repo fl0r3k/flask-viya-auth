@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 
-const LikeButton = (props) => {
+export const LikeButton = () => {
 
   const [liked, setLiked] = useState(false);
 
@@ -9,7 +9,7 @@ const LikeButton = (props) => {
   }
 
   return (
-    <button className="button is-primary" onClick={props.onClick}>
+    <button className="button is-primary" onClick={ () => setLiked(true) }>
       Like
     </button>
   );
