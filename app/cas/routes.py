@@ -26,3 +26,17 @@ def test():
     session = resp.json()
 
     return session
+
+@bp.route("/app")
+def app():
+    return render_template('cas/base.html')
+
+@bp.route("/folders")
+def folders():
+    return {
+        'items': [
+            { 'name' : 'Folder1' },
+            { 'name' : 'Folder2' },
+            { 'name' : 'Folder3' }
+        ]
+    }

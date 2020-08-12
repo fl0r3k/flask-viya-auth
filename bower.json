@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "react": "https://unpkg.com/react@16.13.1/umd/react.production.min.js",
-    "react-dom": "https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js"
+    "react-dom": "https://unpkg.com/react-dom@16.13.1/umd/react-dom.production.min.js",
+    "material-ui": "https://unpkg.com/@material-ui/core@latest/umd/material-ui.production.min.js"
   }
 }
