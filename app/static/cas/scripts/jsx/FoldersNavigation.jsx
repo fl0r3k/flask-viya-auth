@@ -1,127 +1,54 @@
+import { useState, useEffect } from 'react';
+
 import TreeView from '@material-ui/lab/TreeView';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import TreeItem from '@material-ui/lab/TreeItem';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
-const folders1 = {
-  id: 'root',
-  name: 'Parent',
-  children: [
-    {
-      id: '1',
-      name: 'Child - 1',
-    },
-    {
-      id: '3',
-      name: 'Child - 3',
-      children: [
-        {
-          id: '4',
-          name: 'Child - 4',
-        },
-      ],
-    },
-  ],
-};
+const foldersFlat = require('./FoldersFlat.jsx');
 
-const folders2 = {
-    byId: {
-      'folder1': {
-        id: 'folder1',
-        name: 'Folder 1',
-        children: ['folder3', 'folder4']
-      },
-      'folder2': {
-        id: 'folder2',
-        name: 'Folder 2',
-        children: ['folder4', 'folder5', 'folder6']
-      },
-      'folder3': {
-        id: 'folder3',
-        name: 'Folder 3',
-        parent: 'folder1',
-      },
-      'folder4': {
-        id: 'folder4',
-        name: 'Folder 4',
-        parent: 'folder1'
-      },
-      'folder5': {
-        id: 'folder5',
-        name: 'Folder 5',
-        parent: 'folder2'
-      },
-      'folder6': {
-        id: 'folder6',
-        name: 'Folder 6',
-        parent: 'folder2'
-      }
-    },
-    allIds : ['folder1','folder2', 'folder3', 'folder4', 'folder5', 'folder6']
-};
-
-const folders3 = {
-  'root': {
-    id: 'root',
-    name: 'Root Folder',
-    children: ['folder1', 'folder2']
-  },
-  'folder1': {
-    id: 'folder1',
-    name: 'Folder 1',
-    children: ['folder3', 'folder4']
-  },
-  'folder2': {
-    id: 'folder2',
-    name: 'Folder 2',
-    children: ['folder4', 'folder5', 'folder6']
-  },
-  'folder3': {
-    id: 'folder3',
-    name: 'Folder 3',
-    parent: 'folder1',
-  },
-  'folder4': {
-    id: 'folder4',
-    name: 'Folder 4',
-    parent: 'folder1'
-  },
-  'folder5': {
-    id: 'folder5',
-    name: 'Folder 5',
-    parent: 'folder2'
-  },
-  'folder6': {
-    id: 'folder6',
-    name: 'Folder 6',
-    parent: 'folder2'
-  }
-};
 
 const FoldersNavigation = () => {
+  const [folders,setFolders] = useState([]);
+  const [selectedId,setSelectedId] = useState([]);
 
-  const renderTree1 = (nodes) => (
-    <TreeItem key={nodes.id} nodeId={nodes.id} label={nodes.name}>
-      {Array.isArray(nodes.children) ? nodes.children.map((node) => renderTree(node)) : null}
-    </TreeItem>
-  );
-  const renderTree3 = (nodeId) => {
-    const node = folders3[nodeId];
+
+  // useEffect( () => {
+  //   const api_url = 'http://localhost:5000/foldersTree';
+  //   fetch(api_url)
+  //     .then( res => res.json() )
+  //     .then( data => {
+  //       setFolders(data.items)
+  //     })
+  // }, []);
+
+  useEffect( () => {
+    setFolders(foldersFlat.items);
+  }, []);
+
+  const onNodeSelectHandler = (e,v) => {
+    setSelectedId(v);
+  }
+
+  const renderTree = (parentFolderUri, rootLevel) => {
+    let members = null;
+    if (rootLevel) {
+      members = folders.filter( n => n.type == "folder" || n.type == "userRoot");
+    } else {
+      members = folders.filter( n => n.parentFolderUri == parentFolderUri );
+    }
     return (
-      <TreeItem key={node.id} nodeId={node.id} label={node.name}>
-        {Array.isArray(node.children) ? node.children.map((childNode) => renderTree3(childNode)) : null}
-      </TreeItem>
+      members.length > 0 ? members.map( member =>
+        <TreeItem key={member.id} nodeId={member.id} label={member.name}>
+          { renderTree(member.uri,false) }
+        </TreeItem>
+      ) : null
     );
   };
-
-  // const renderTree4 = (nodeId) => {
-  //   const node = folders3[nodeId];
-  //   return (
-  //     <StyledTreeItem key={node.id} nodeId={node.id} labelText={node.name} labelIcon={DeleteIcon} >
-  //       {Array.isArray(node.children) ? node.children.map((childNode) => renderTree3(childNode)) : null}
-  //     </StyledTreeItem>
-  //   );
-  // };
 
   return (
     <div>
@@ -129,9 +56,19 @@ const FoldersNavigation = () => {
         defaultCollapseIcon={<ExpandMoreIcon />}
         defaultExpanded={['root']}
         defaultExpandIcon={<ChevronRightIcon />}
+        onNodeSelect={(e,v) => onNodeSelectHandler(e,v)}
       >
-        {renderTree3(folders3.root.id)}
+
+        { renderTree('',true) }
+
       </TreeView>
+      <Card>
+        <CardContent>
+          <Typography variant="body2" component="p">
+            { JSON.stringify(folders.find( n => n.id == selectedId), null, 2) }
+          </Typography>
+        </CardContent>
+      </Card>
     </div>
     );
 }
