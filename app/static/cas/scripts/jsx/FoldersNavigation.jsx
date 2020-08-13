@@ -14,7 +14,9 @@ const foldersFlat = require('./FoldersFlat.jsx');
 
 const FoldersNavigation = () => {
   const [folders,setFolders] = useState([]);
-  const [selectedId,setSelectedId] = useState([]);
+  const [selectedId,setSelectedId] = useState("");
+  const [isSelected,setSelected] = useState(false);
+
 
 
   // useEffect( () => {
@@ -29,6 +31,10 @@ const FoldersNavigation = () => {
   useEffect( () => {
     setFolders(foldersFlat.items);
   }, []);
+
+  useEffect( () => {
+    selectedId == '' ? setSelected(false) : setSelected(true);
+  }, [selectedId]);
 
   const onNodeSelectHandler = (e,v) => {
     setSelectedId(v);
@@ -50,6 +56,8 @@ const FoldersNavigation = () => {
     );
   };
 
+  const selectedFolder = isSelected && folders.find( n => n.id == selectedId);
+
   return (
     <div>
       <TreeView
@@ -64,9 +72,14 @@ const FoldersNavigation = () => {
       </TreeView>
       <Card>
         <CardContent>
-          <Typography variant="body2" component="p">
-            { JSON.stringify(folders.find( n => n.id == selectedId), null, 2) }
-          </Typography>
+          { isSelected &&
+            Object.keys(selectedFolder).map( k => (
+                <Typography key={k} variant="body1">
+                  { k } : { selectedFolder[k] }
+                </Typography>
+              )
+            )
+          }
         </CardContent>
       </Card>
     </div>
