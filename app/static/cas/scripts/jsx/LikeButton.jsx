@@ -15,4 +15,4 @@ export const LikeButton = () => {
   );
 }
 
-export default LikeButton;
+module.exports = LikeButton;

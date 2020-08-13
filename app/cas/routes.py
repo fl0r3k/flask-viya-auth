@@ -40,3 +40,13 @@ def folders():
             { 'name' : 'Folder3' }
         ]
     }
+
+@bp.route("/folders-recurse")
+def folders_recurse():
+    return {
+        'items': [
+            { 'name' : 'Folder1' },
+            { 'name' : 'Folder2' },
+            { 'name' : 'Folder3' }
+        ]
+    }
