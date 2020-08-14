@@ -12,7 +12,6 @@ class User(UserMixin):
         self.token = token
 
 
-
 @login_manager.user_loader
 def load_user(id):
     return get_user_info()
@@ -20,6 +19,6 @@ def load_user(id):
 def get_user_info():
     sas = oauth_manager.create_client('sas')
     token = session.get('access_token')
-    resp = sas.get('identities/users/@currentUser',token=token)
+    resp = sas.get('identities/users/@currentUser', token=token)
     userinfo = resp.json()
     return User(id_=userinfo['id'], name=userinfo['name'], email='empty', token=token)
